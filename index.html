@@ -218,33 +218,24 @@ function toggleStep(id, on){
   persist();
 }
 
-function mountMedia(box, url, hint, step){
+function mountMedia(box, url, hint, step) {
   box.innerHTML = '';
-  if(!url){ box.appendChild(el('div',{}, `No media · ${hint}`)); return; }
-  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
-  if(isVideo){
-    const v = el('video',{src:url,controls:true});
-    if(step && step.poster) v.setAttribute('poster', step.poster);
+  if (!url) { 
+    box.appendChild(el('div', {}, `No media · ${hint}`)); 
+    return; 
+  }
+  const isVideo = /\.(mp4|webm|ogg)(\?.*)?$/i.test(url);
+  if (isVideo) {
+    const v = el('video', { src: url, controls: true });
+    if (step && step.poster) v.setAttribute('poster', step.poster); // Step 5
     box.appendChild(v);
   } else {
-    const img = el('img',{src:url,alt:hint,loading:'lazy'});
+    const img = el('img', { src: url, alt: hint, loading: 'lazy' });
     box.appendChild(img);
   }
-}, `No media · ${hint}`)); return; }
-  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
-  if(isVideo){
-    const v = el('video',{src:url,controls:true});
-    if(step && step.poster) v.setAttribute('poster', step.poster);
-    box.appendChild(v);
-  } else {
-    const img = el('img',{src:url,alt:hint,loading:'lazy'});
-    box.appendChild(img);
-  }
-}, `No media · ${hint}`)); return; }
-  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
-  if(isVideo){ box.appendChild(el('video',{src:url,controls:true})); }
-  else { box.appendChild(el('img',{src:url,alt:hint,loading:'lazy'})); }
 }
+
+
 
 function belongingsBlock(){
   const wrap = el('div',{});
