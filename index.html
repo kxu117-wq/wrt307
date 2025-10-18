@@ -1,5 +1,14 @@
 <!doctype html>
 <html lang="en">
+<button id="resetMedia" style="margin-left:8px">Reset media</button>
+<script>
+document.getElementById('resetMedia').onclick = () => {
+  const k='su-study-instructions-v2';
+  const s=JSON.parse(localStorage.getItem(k)||'{}');
+  if(s.media){ s.media={}; localStorage.setItem(k, JSON.stringify(s)); location.reload(); }
+};
+</script>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
