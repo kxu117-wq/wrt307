@@ -71,29 +71,30 @@ const steps = [
     id: 2,
     title: 'Go to Schine Student Center',
     text: 'Head to Schine Student Center and pick up food from the available options.',
-    mediaHint: 'Photo of Schine Student Center',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?student,center,university,campus'
+    mediaHint: 'Provided photo: Schine Student Center',
+    defaultMedia: '../image/2.jpg'
   },
   {
     id: 3,
     title: 'Grab a caffeine boost',
     text: 'Along with food, get a coffee from Dunkin or an energy drink.',
-    mediaHint: 'Short video or image of a food court / coffee',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?coffee,energy,drink'
+    mediaHint: 'Provided short video: food court',
+    defaultMedia: '../image/3.mp4'
   },
   {
     id: 4,
     title: 'Walk to Bird Library',
     text: 'Move to Bird Library for a quiet study environment that minimizes distraction.',
-    mediaHint: 'Campus map or photos of Bird Library',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?library,quiet,study'
+    mediaHint: 'Provided campus map',
+    defaultMedia: '../image/4.1.jpg'
   },
   {
     id: 5,
     title: 'Go downstairs at Bird',
     text: 'On arrival, head downstairs where you can eat and start your assignments.',
-    mediaHint: 'Short video of the route to the lower level',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?stairs,underground,university'
+    mediaHint: 'Provided short video: route to lower level (poster = Bird entrance photo)',
+    defaultMedia: '../image/5.mp4',
+    poster: '../image/4.jpg'
   },
   {
     id: 6,
@@ -107,8 +108,8 @@ const steps = [
     id: 7,
     title: 'Move to a top floor',
     text: 'After eating, move to a top floor in Bird. It is quieter and seats are more available.',
-    mediaHint: 'Photo of an open study area on a top floor',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?study,open,space,library'
+    mediaHint: 'Provided photo: Bird study area',
+    defaultMedia: '../image/7.jpg'
   },
   {
     id: 8,
@@ -176,7 +177,7 @@ function renderStep(step){
   h.appendChild(el('div',{class:'step-num'},`Step ${step.id}`));
 
   const mediaBox = el('div',{class:'media', role:'img','aria-label': step.mediaHint});
-  mountMedia(mediaBox, state.media[step.id] || step.defaultMedia, step.mediaHint);
+  mountMedia(mediaBox, state.media[step.id] || step.defaultMedia, step.mediaHint, step);
   h.appendChild(mediaBox);
 
   const body = el('div',{class:'pad'});
@@ -196,7 +197,7 @@ function renderStep(step){
   saveBtn.onclick = () => {
     state.media[step.id] = input.value.trim();
     persist();
-    mountMedia(mediaBox, state.media[step.id], step.mediaHint);
+    mountMedia(mediaBox, state.media[step.id], step.mediaHint, step);
   };
   edit.append(sum, el('div',{class:'pad',style:'padding-left:0'}, input, el('div',{style:'height:8px'}), saveBtn));
 
@@ -217,9 +218,29 @@ function toggleStep(id, on){
   persist();
 }
 
-function mountMedia(box, url, hint){
+function mountMedia(box, url, hint, step){
   box.innerHTML = '';
   if(!url){ box.appendChild(el('div',{}, `No media · ${hint}`)); return; }
+  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
+  if(isVideo){
+    const v = el('video',{src:url,controls:true});
+    if(step && step.poster) v.setAttribute('poster', step.poster);
+    box.appendChild(v);
+  } else {
+    const img = el('img',{src:url,alt:hint,loading:'lazy'});
+    box.appendChild(img);
+  }
+}, `No media · ${hint}`)); return; }
+  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
+  if(isVideo){
+    const v = el('video',{src:url,controls:true});
+    if(step && step.poster) v.setAttribute('poster', step.poster);
+    box.appendChild(v);
+  } else {
+    const img = el('img',{src:url,alt:hint,loading:'lazy'});
+    box.appendChild(img);
+  }
+}, `No media · ${hint}`)); return; }
   const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
   if(isVideo){ box.appendChild(el('video',{src:url,controls:true})); }
   else { box.appendChild(el('img',{src:url,alt:hint,loading:'lazy'})); }
