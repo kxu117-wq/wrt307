@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Syracuse University Study Instructions</title>
   <style>
-    :root{--bg:#0b0f14;--card:#121821;--muted:#94a3b8;--text:#e5e7eb;--brand:#f97316;--ok:#22c55e;--warn:#eab308}
+    :root{--bg:#0b0f14;--card:#121821;--muted:#94a3b8;--text:#e5e7eb;--brand:#f97316}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     header{position:sticky;top:0;background:linear-gradient(180deg,#0b0f14 0%,rgba(11,15,20,.85) 100%);backdrop-filter:saturate(1.2) blur(6px);z-index:10;border-bottom:1px solid #1f2937}
@@ -24,7 +24,6 @@
     button{appearance:none;border:1px solid #334155;background:#0b1220;color:#e5e7eb;padding:8px 12px;border-radius:10px;cursor:pointer}
     button.primary{background:var(--brand);border-color:#ea580c;color:#111}
     label.switch{display:inline-flex;align-items:center;gap:8px}
-    progress{width:100%;height:12px}
     .pill{display:inline-block;border:1px solid #334155;color:#cbd5e1;border-radius:999px;padding:2px 8px;font-size:12px}
     details summary{cursor:pointer;color:#cbd5e1}
     input[type="text"]{width:100%;padding:8px;background:#0b1220;color:#e5e7eb;border:1px solid #334155;border-radius:8px}
@@ -32,9 +31,9 @@
     .checklist label{display:flex;gap:8px;align-items:center}
     .row{display:flex;gap:8px}
     .grow{flex:1}
-    footer{opacity:.8}
     .bar{height:8px;background:#111827;border-radius:999px;overflow:hidden;border:1px solid #1f2937}
     .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),#f59e0b);width:0%}
+    footer{opacity:.8}
   </style>
 </head>
 <body>
@@ -42,10 +41,10 @@
     <div class="wrap" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <div style="flex:1">
         <h1>Syracuse University Study Instructions</h1>
-        <div class="muted">10 步场景化学习指南 · 可替换媒体 · 清单与 25/5 计时器</div>
+        <div class="muted">10-step study flow · Replaceable media · Checklists and a 25/5 timer</div>
       </div>
       <div>
-        <div class="muted" style="font-size:12px">整体进度</div>
+        <div class="muted" style="font-size:12px">Overall progress</div>
         <div class="bar"><span id="progressBar"></span></div>
       </div>
     </div>
@@ -54,93 +53,93 @@
   <main class="wrap" id="app" style="padding-top:20px"></main>
 
   <footer class="wrap" style="padding-bottom:40px">
-    <p class="muted">使用说明：点击每张卡片的“编辑媒体”为该步骤粘贴图片或视频 URL（如 Unsplash 图片或你们拍摄的视频直链）。所有勾选与输入保存在本地浏览器的 LocalStorage。将本文件命名为 <code>index.html</code> 放在仓库根目录，推送到 GitHub Pages 即可公开访问。</p>
+    <p class="muted">How to use: Each card has “Edit media.” Paste an image or video URL (Unsplash featured endpoints work). All inputs persist to LocalStorage. Save this file as <code>index.html</code> at repo root and publish via GitHub Pages.</p>
   </footer>
 
 <script>
-// ---- 数据：根据你给定的 10 步 ----
+// ---- Data (English + default images) ----
 const steps = [
   {
     id: 1,
-    title: 'Checklist of belongings',
-    text: 'The first step would be to gather all of their belongings necessary to their study session.',
-    mediaHint: 'Images, stock photos (unsplash), video, etc.',
-    defaultMedia: '',
-    type: 'feature:belongings' // 特殊：物品清单
+    title: 'Belongings checklist',
+    text: 'Gather every item you need for this study session before you leave.',
+    mediaHint: 'Images, stock photos (Unsplash), video, etc.',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?checklist,stationery,student',
+    type: 'feature:belongings'
   },
   {
     id: 2,
     title: 'Go to Schine Student Center',
-    text: 'Head to Schine Student Center and pick up food from their numerous options.',
-    mediaHint: 'Image of Schine Student Center',
-    defaultMedia: '',
+    text: 'Head to Schine Student Center and pick up food from the available options.',
+    mediaHint: 'Photo of Schine Student Center',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?student,center,university,campus'
   },
   {
     id: 3,
     title: 'Grab a caffeine boost',
-    text: 'In addition to food, pick up a caffeine boost such as a coffee from Dunkin or an energy drink.',
-    mediaHint: 'Short video of the food court',
-    defaultMedia: ''
+    text: 'Along with food, get a coffee from Dunkin or an energy drink.',
+    mediaHint: 'Short video or image of a food court / coffee',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?coffee,energy,drink'
   },
   {
     id: 4,
-    title: 'Head to Bird Library',
-    text: 'Next, head to Bird Library as it is a quiet location where you can focus and avoid being easily distracted.',
-    mediaHint: 'Map of campus, photos of Bird Library',
-    defaultMedia: ''
+    title: 'Walk to Bird Library',
+    text: 'Move to Bird Library for a quiet study environment that minimizes distraction.',
+    mediaHint: 'Campus map or photos of Bird Library',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?library,quiet,study'
   },
   {
     id: 5,
     title: 'Go downstairs at Bird',
-    text: 'When you arrive at Bird, head downstairs where you can enjoy your food and get started on your assignments.',
-    mediaHint: 'Short video of the route from the door to underground',
-    defaultMedia: ''
+    text: 'On arrival, head downstairs where you can eat and start your assignments.',
+    mediaHint: 'Short video of the route to the lower level',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?stairs,underground,university'
   },
   {
     id: 6,
     title: 'Make your assignment checklist',
-    text: 'While you are eating, make a checklist of what you want to get done to hold yourself accountable.',
-    mediaHint: 'Photo of a checklist of assignments',
-    defaultMedia: '',
-    type: 'feature:assignments' // 特殊：作业清单
+    text: 'While eating, write a checklist of everything you plan to complete to keep yourself accountable.',
+    mediaHint: 'Photo of an assignment checklist',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?notebook,checklist,planning',
+    type: 'feature:assignments'
   },
   {
     id: 7,
     title: 'Move to a top floor',
-    text: 'Once you finish your food, head to one of the top floors in Bird as it is quieter and more open seats will be available.',
-    mediaHint: 'Photo of an open area on one of the top floors of Bird Library',
-    defaultMedia: ''
+    text: 'After eating, move to a top floor in Bird. It is quieter and seats are more available.',
+    mediaHint: 'Photo of an open study area on a top floor',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?study,open,space,library'
   },
   {
     id: 8,
     title: 'Stow your phone',
-    text: 'Once you find a nice place to study, put your phone in your backpack so you will not be tempted to use it when you are studying.',
-    mediaHint: 'Photo of your phone far away from you',
-    defaultMedia: ''
+    text: 'Once seated, put your phone in your backpack to remove temptation.',
+    mediaHint: 'Photo of a phone placed away / in a backpack',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?phone,backpack'
   },
   {
     id: 9,
-    title: '25/5 routine',
-    text: 'For every 25 minutes you work on assignments, give yourself a five minute break to keep you motivated. Make sure to hold yourself accountable to this schedule.',
-    mediaHint: 'An AI image of the “25 minutes work 5 minute break” routine',
-    defaultMedia: '',
-    type: 'feature:timer' // 特殊：番茄钟
+    title: 'Use the 25/5 routine',
+    text: 'Work for 25 minutes, then take a 5-minute break. Hold yourself to this schedule.',
+    mediaHint: 'Graphic of a 25m work / 5m break cycle',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?timer,clock,pomodoro',
+    type: 'feature:timer'
   },
   {
     id: 10,
-    title: 'Wrap up and head home',
-    text: 'Once you complete all of the assignments on the checklist you made earlier, pack up your belongings and return back home after a job well done.',
-    mediaHint: 'Checklist of belongings, and how many work finished',
-    defaultMedia: ''
+    title: 'Pack up and head home',
+    text: 'After completing your checklist, pack your belongings and go home. Job well done.',
+    mediaHint: 'Belongings checklist and “tasks finished” photo',
+    defaultMedia: 'https://source.unsplash.com/1600x900/?backpack,student,night'
   }
 ];
 
-// ---- 状态持久化 ----
-const LS_KEY = 'su-study-instructions-v1';
+// ---- State ----
+const LS_KEY = 'su-study-instructions-v2';
 const state = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
 state.media = state.media || {}; // stepId -> URL
 state.completedSteps = new Set(state.completedSteps || []);
-state.belongings = state.belongings || ['Laptop','Charger','Student ID','Notebook','Pens','Headphones'];
+state.belongings = state.belongings || ['Laptop','Charger','Student ID','Notebook','Pens','Headphones','Water bottle'];
 state.belongingsDone = new Set(state.belongingsDone || []);
 state.assignments = state.assignments || [];
 state.assignmentsDone = new Set(state.assignmentsDone || []);
@@ -159,7 +158,7 @@ function persist(){
   updateProgressBar();
 }
 
-// ---- 渲染 ----
+// ---- Render ----
 const app = document.getElementById('app');
 render();
 
@@ -184,18 +183,16 @@ function renderStep(step){
   body.appendChild(el('div',{class:'title'}, step.title));
   body.appendChild(el('p',{}, step.text));
 
-  // 特性块
   if(step.type === 'feature:belongings') body.appendChild(belongingsBlock());
   if(step.type === 'feature:assignments') body.appendChild(assignmentsBlock());
   if(step.type === 'feature:timer') body.appendChild(timerBlock());
 
-  // 编辑与完成
   const actions = el('div',{class:'actions'});
   const edit = el('details',{});
-  const sum = el('summary',{}, '编辑媒体');
-  const input = el('input',{type:'text',placeholder:`粘贴图片或视频 URL · 提示：${step.mediaHint}`});
+  const sum = el('summary',{}, 'Edit media');
+  const input = el('input',{type:'text',placeholder:`Paste image or video URL · Hint: ${step.mediaHint}`});
   input.value = state.media[step.id] || '';
-  const saveBtn = el('button',{class:'primary'},'保存');
+  const saveBtn = el('button',{class:'primary'},'Save');
   saveBtn.onclick = () => {
     state.media[step.id] = input.value.trim();
     persist();
@@ -205,7 +202,7 @@ function renderStep(step){
 
   const done = el('label',{class:'switch'},
     el('input',{type:'checkbox', checked: state.completedSteps.has(step.id), onchange:e=>{ toggleStep(step.id, e.target.checked); }}),
-    el('span',{}, '标记步骤完成')
+    el('span',{}, 'Mark completed')
   );
 
   actions.append(edit, done, el('span',{class:'pill'}, step.mediaHint));
@@ -222,33 +219,22 @@ function toggleStep(id, on){
 
 function mountMedia(box, url, hint){
   box.innerHTML = '';
-  if(!url){
-    box.appendChild(el('div',{}, `无媒体 · ${hint}`));
-    return;
-  }
+  if(!url){ box.appendChild(el('div',{}, `No media · ${hint}`)); return; }
   const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
-  if(isVideo){
-    const v = el('video',{src:url,controls:true});
-    box.appendChild(v);
-  } else {
-    const img = el('img',{src:url,alt:hint,loading:'lazy'});
-    box.appendChild(img);
-  }
+  if(isVideo){ box.appendChild(el('video',{src:url,controls:true})); }
+  else { box.appendChild(el('img',{src:url,alt:hint,loading:'lazy'})); }
 }
 
 function belongingsBlock(){
   const wrap = el('div',{});
-  wrap.appendChild(el('div',{class:'muted'},'学习物品清单'));
+  wrap.appendChild(el('div',{class:'muted'},'Belongings checklist'));
   const list = el('div',{class:'checklist'});
   renderBelongings(list);
   const row = el('div',{class:'row'});
-  const inp = el('input',{type:'text',placeholder:'添加物品，例如 Water Bottle',class:'grow'});
-  const add = el('button',{},'添加');
-  add.onclick = ()=>{
-    const t = inp.value.trim(); if(!t) return;
-    state.belongings.push(t); inp.value=''; persist(); renderBelongings(list);
-  };
-  const clr = el('button',{},'清除已勾选');
+  const inp = el('input',{type:'text',placeholder:'Add item, e.g., Water bottle',class:'grow'});
+  const add = el('button',{},'Add');
+  add.onclick = ()=>{ const t = inp.value.trim(); if(!t) return; state.belongings.push(t); inp.value=''; persist(); renderBelongings(list); };
+  const clr = el('button',{},'Clear checked');
   clr.onclick = ()=>{ state.belongingsDone.clear(); persist(); renderBelongings(list); };
   row.append(inp, add, clr);
   wrap.append(list,row);
@@ -257,7 +243,6 @@ function belongingsBlock(){
 function renderBelongings(node){
   node.innerHTML='';
   state.belongings.forEach((item,i)=>{
-    const id = 'b-'+i;
     node.appendChild(el('label',{},
       el('input',{type:'checkbox',checked: state.belongingsDone.has(i), onchange:e=>{ if(e.target.checked) state.belongingsDone.add(i); else state.belongingsDone.delete(i); persist(); }}),
       el('span',{}, item)
@@ -267,12 +252,12 @@ function renderBelongings(node){
 
 function assignmentsBlock(){
   const wrap = el('div',{});
-  wrap.appendChild(el('div',{class:'muted'},'作业清单（边吃边列）'));
+  wrap.appendChild(el('div',{class:'muted'},'Assignment checklist'));
   const list = el('div',{class:'checklist'});
   renderAssignments(list);
   const row = el('div',{class:'row'});
-  const inp = el('input',{type:'text',placeholder:'添加任务，例如 IST 359 Lab 5',class:'grow'});
-  const add = el('button',{},'添加');
+  const inp = el('input',{type:'text',placeholder:'Add task, e.g., IST 359 Lab 5',class:'grow'});
+  const add = el('button',{},'Add');
   add.onclick = ()=>{ const t = inp.value.trim(); if(!t) return; state.assignments.push(t); inp.value=''; persist(); renderAssignments(list); };
   const stats = el('span',{class:'pill',id:'assignStats'});
   row.append(inp, add, stats);
@@ -292,25 +277,25 @@ function renderAssignments(node){
 function updateAssignStats(){
   const done = state.assignmentsDone.size; const total = state.assignments.length || 0;
   const elStat = document.getElementById('assignStats');
-  if(elStat) elStat.textContent = `完成 ${done}/${total}`;
+  if(elStat) elStat.textContent = `Done ${done}/${total}`;
 }
 
-// 25/5 番茄钟
+// 25/5 timer
 let timerHandle = null;
 function timerBlock(){
   const wrap = el('div',{});
   const status = el('div',{class:'muted',id:'timerStatus'});
   const display = el('div',{style:'font-weight:700;font-size:28px;margin:4px 0'}, formatMMSS(state.timer.mins, state.timer.secs));
   const row = el('div',{class:'actions'});
-  const start = el('button',{class:'primary'},'开始 25/5');
-  const pause = el('button',{},'暂停');
-  const reset = el('button',{},'复位');
+  const start = el('button',{class:'primary'},'Start 25/5');
+  const pause = el('button',{},'Pause');
+  const reset = el('button',{},'Reset');
 
   start.onclick = ()=> startTimer();
   pause.onclick = ()=> pauseTimer();
   reset.onclick = ()=> resetTimer(display,status);
 
-  const meta = el('div',{class:'muted'},()=>`阶段：${labelPhase()} · 完成循环：${state.timer.cycles}`);
+  const meta = el('div',{class:'muted'},()=>`Phase: ${labelPhase()} · Cycles: ${state.timer.cycles}`);
 
   row.append(start,pause,reset);
   wrap.append(status, display, row, meta);
@@ -318,7 +303,6 @@ function timerBlock(){
   function tick(){
     if(state.timer.secs===0){
       if(state.timer.mins===0){
-        // 切换阶段
         if(state.timer.phase==='work'){
           state.timer.phase='break'; state.timer.mins=5; state.timer.secs=0;
         }else if(state.timer.phase==='break'){
@@ -340,16 +324,16 @@ function timerBlock(){
   return wrap;
 }
 function labelPhase(){
-  return state.timer.phase==='work'?'专注': state.timer.phase==='break'?'休息':'未开始';
+  return state.timer.phase==='work'?'Focus': state.timer.phase==='break'?'Break':'Idle';
 }
 function phaseTip(){
-  if(state.timer.phase==='work') return '专注 25 分钟，保持投入。';
-  if(state.timer.phase==='break') return '休息 5 分钟，起身走动喝水。';
-  return '点击“开始 25/5”启动番茄钟。';
+  if(state.timer.phase==='work') return 'Focus for 25 minutes.';
+  if(state.timer.phase==='break') return 'Break for 5 minutes. Walk and hydrate.';
+  return 'Click “Start 25/5” to begin.';
 }
 function formatMMSS(m,s){ return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
 
-// 进度条
+// Progress bar
 function updateProgressBar(){
   const done = state.completedSteps.size; const total = steps.length;
   const pct = Math.round(done/total*100);
@@ -357,7 +341,7 @@ function updateProgressBar(){
   if(bar) bar.style.width = pct+'%';
 }
 
-// 工具：简化创建元素
+// Utility
 function el(tag, attrs, ...children){
   const n = document.createElement(tag);
   if(typeof attrs==='object' && attrs){
