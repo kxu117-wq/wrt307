@@ -1,387 +1,168 @@
 <!doctype html>
 <html lang="en">
-<button id="resetMedia" style="margin-left:8px">Reset media</button>
-<script>
-document.getElementById('resetMedia').onclick = () => {
-  const k='su-study-instructions-v2';
-  const s=JSON.parse(localStorage.getItem(k)||'{}');
-  if(s.media){ s.media={}; localStorage.setItem(k, JSON.stringify(s)); location.reload(); }
-};
-</script>
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Syracuse University Study Instructions</title>
   <style>
-    :root{--bg:#0b0f14;--card:#121821;--muted:#94a3b8;--text:#e5e7eb;--brand:#f97316}
+    :root{--bg:#0b0f14;--card:#121821;--muted:#94a3b8;--text:#e5e7eb;--brand:#f97316;--line:#1f2937}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    header{position:sticky;top:0;background:linear-gradient(180deg,#0b0f14 0%,rgba(11,15,20,.85) 100%);backdrop-filter:saturate(1.2) blur(6px);z-index:10;border-bottom:1px solid #1f2937}
+    header{position:sticky;top:0;background:linear-gradient(180deg,#0b0f14 0%,rgba(11,15,20,.85) 100%);backdrop-filter:saturate(1.2) blur(6px);z-index:10;border-bottom:1px solid var(--line)}
     .wrap{max-width:1100px;margin:auto;padding:16px}
     h1{margin:0;font-size:24px}
     .muted{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-    .card header{position:relative;background:none;border:0}
-    .step-num{position:absolute;top:12px;left:12px;background:#111827;border:1px solid #374151;color:#fff;padding:4px 10px;border-radius:999px;font-weight:600}
-    .media{aspect-ratio:16/9;background:#0f172a;display:grid;place-items:center;color:#64748b}
-    .media img,.media video{width:100%;height:100%;object-fit:cover}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .media{position:relative;aspect-ratio:16/9;background:#0f172a}
+    .media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
+    .num{position:absolute;top:10px;left:10px;background:#111827;border:1px solid #374151;color:#fff;padding:4px 10px;border-radius:999px;font-weight:600}
     .pad{padding:14px}
     .title{font-weight:700;font-size:18px;margin:0 0 8px}
-    .actions{display:flex;gap:8px;flex-wrap:wrap}
-    button{appearance:none;border:1px solid #334155;background:#0b1220;color:#e5e7eb;padding:8px 12px;border-radius:10px;cursor:pointer}
-    button.primary{background:var(--brand);border-color:#ea580c;color:#111}
-    label.switch{display:inline-flex;align-items:center;gap:8px}
-    .pill{display:inline-block;border:1px solid #334155;color:#cbd5e1;border-radius:999px;padding:2px 8px;font-size:12px}
-    details summary{cursor:pointer;color:#cbd5e1}
-    input[type="text"]{width:100%;padding:8px;background:#0b1220;color:#e5e7eb;border:1px solid #334155;border-radius:8px}
-    .checklist{display:flex;flex-direction:column;gap:6px}
-    .checklist label{display:flex;gap:8px;align-items:center}
-    .row{display:flex;gap:8px}
-    .grow{flex:1}
-    .bar{height:8px;background:#111827;border-radius:999px;overflow:hidden;border:1px solid #1f2937}
-    .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),#f59e0b);width:0%}
-    footer{opacity:.8}
+    .top{position:fixed;right:16px;bottom:16px;background:var(--brand);color:#111;border:none;border-radius:12px;padding:10px 14px;cursor:pointer}
+    a{color:inherit;text-decoration:none}
   </style>
+  <!-- NOTE: index.html is at wrt307/wrt307/, media is at wrt307/image/, so use ../image/... -->
 </head>
 <body>
-  <header>
-    <div class="wrap" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-      <div style="flex:1">
-        <h1>Syracuse University Study Instructions</h1>
-        <div class="muted">10-step study flow · Local media paths set · Checklists and a 25/5 timer</div>
+<header>
+  <div class="wrap">
+    <h1>Syracuse University Study Instructions</h1>
+    <div class="muted">Purpose: where to study, how to study, how long. Simple 10-step flow.</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="grid">
+
+    <!-- 1 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 1</span>
+        <img src="../image/2.jpg" alt="Belongings checklist">
       </div>
-      <div>
-        <div class="muted" style="font-size:12px">Overall progress</div>
-        <div class="bar"><span id="progressBar"></span></div>
+      <div class="pad">
+        <div class="title">Belongings checklist</div>
+        <p>Pack ID, laptop, charger, headphones, notebook, water, snack.</p>
       </div>
-    </div>
-  </header>
+    </article>
 
-  <main class="wrap" id="app" style="padding-top:20px"></main>
+    <!-- 2 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 2</span>
+        <img src="../image/4.jpg" alt="Schine Student Center">
+      </div>
+      <div class="pad">
+        <div class="title">Go to Schine Student Center</div>
+        <p>Pick simple food. Avoid heavy or high-sugar options.</p>
+      </div>
+    </article>
 
-  <footer class="wrap" style="padding-bottom:40px">
-    <p class="muted">
-      Paths target your structure: <code>wrt307/index.html</code> → <code>../WRT307/image/...</code>.
-      Use “Edit media” to replace any item. Data persists to LocalStorage.
-    </p>
-  </footer>
+    <!-- 3 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 3</span>
+        <video src="../image/3.mp4" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="pad">
+        <div class="title">Grab a caffeine boost</div>
+        <p>Small coffee or energy drink to stay alert.</p>
+      </div>
+    </article>
 
-<script>
-// ---- Data (mapped to your local files) ----
-// From wrt307/index.html to WRT307/image/*  =>  ../WRT307/image/...
-const steps = [
-  {
-    id: 1,
-    title: 'Belongings checklist',
-    text: 'Gather every item you need for this study session before you leave.',
-    mediaHint: 'Local image 2.jpg',
-    defaultMedia: '../WRT307/image/2.jpg',
-    type: 'feature:belongings'
-  },
-  {
-    id: 2,
-    title: 'Go to Schine Student Center',
-    text: 'Head to Schine Student Center and pick up food from the available options.',
-    mediaHint: 'Local image 4.jpg',
-    defaultMedia: '../WRT307/image/4.jpg'
-  },
-  {
-    id: 3,
-    title: 'Grab a caffeine boost',
-    text: 'Along with food, get a coffee from Dunkin or an energy drink.',
-    mediaHint: 'Local video 3.mp4',
-    defaultMedia: '../WRT307/image/3.mp4'
-  },
-  {
-    id: 4,
-    title: 'Walk to Bird Library',
-    text: 'Move to Bird Library for a quiet study environment that minimizes distraction.',
-    mediaHint: 'Local image 4.1.jpg',
-    defaultMedia: '../WRT307/image/4.1.jpg'
-  },
-  {
-    id: 5,
-    title: 'Go downstairs at Bird',
-    text: 'On arrival, head downstairs where you can eat and start your assignments.',
-    mediaHint: 'Local video 5.mp4',
-    defaultMedia: '../WRT307/image/5.mp4'
-  },
-  {
-    id: 6,
-    title: 'Make your assignment checklist',
-    text: 'While eating, write a checklist of everything you plan to complete to keep yourself accountable.',
-    mediaHint: 'Local image 7.jpg',
-    defaultMedia: '../WRT307/image/7.jpg',
-    type: 'feature:assignments'
-  },
-  {
-    id: 7,
-    title: 'Move to a top floor',
-    text: 'After eating, move to a top floor in Bird. It is quieter and seats are more available.',
-    mediaHint: 'Local image book room.jpg',
-    defaultMedia: '../WRT307/image/book%20room.jpg'
-  },
-  {
-    id: 8,
-    title: 'Stow your phone',
-    text: 'Once seated, put your phone in your backpack to remove temptation.',
-    mediaHint: 'Fallback stock image',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?phone,backpack'
-  },
-  {
-    id: 9,
-    title: 'Use the 25/5 routine',
-    text: 'Work for 25 minutes, then take a 5-minute break. Hold yourself to this schedule.',
-    mediaHint: 'Fallback stock image',
-    defaultMedia: 'https://source.unsplash.com/1600x900/?timer,clock,pomodoro',
-    type: 'feature:timer'
-  },
-  {
-    id: 10,
-    title: 'Pack up and head home',
-    text: 'After completing your checklist, pack your belongings and go home. Job well done.',
-    mediaHint: 'Reuse local image 2.jpg',
-    defaultMedia: '../WRT307/image/2.jpg'
-  }
-];
+    <!-- 4 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 4</span>
+        <img src="../image/4.1.jpg" alt="Campus map and Bird Library">
+      </div>
+      <div class="pad">
+        <div class="title">Walk to Bird Library</div>
+        <p>Choose a quiet zone to reduce distractions.</p>
+      </div>
+    </article>
 
-// ---- State ----
-const LS_KEY = 'su-study-instructions-v2';
-const state = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-state.media = state.media || {}; // stepId -> URL
-state.completedSteps = new Set(state.completedSteps || []);
-state.belongings = state.belongings || ['Laptop','Charger','Student ID','Notebook','Pens','Headphones','Water bottle'];
-state.belongingsDone = new Set(state.belongingsDone || []);
-state.assignments = state.assignments || [];
-state.assignmentsDone = new Set(state.assignmentsDone || []);
-state.timer = state.timer || {phase:'idle',mins:25,secs:0,cycles:0};
+    <!-- 5 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 5</span>
+        <video src="../image/5.mp4" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="pad">
+        <div class="title">Go downstairs at Bird</div>
+        <p>Eat on the lower level and outline tasks.</p>
+      </div>
+    </article>
 
-function persist(){
-  localStorage.setItem(LS_KEY, JSON.stringify({
-    media: state.media,
-    completedSteps: [...state.completedSteps],
-    belongings: state.belongings,
-    belongingsDone: [...state.belongingsDone],
-    assignments: state.assignments,
-    assignmentsDone: [...state.assignmentsDone],
-    timer: state.timer
-  }));
-  updateProgressBar();
-}
+    <!-- 6 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 6</span>
+        <img src="../image/7.jpg" alt="Assignment checklist">
+      </div>
+      <div class="pad">
+        <div class="title">Make your assignment checklist</div>
+        <p>List 3–5 doable items in priority order.</p>
+      </div>
+    </article>
 
-// ---- Render ----
-const app = document.getElementById('app');
-render();
+    <!-- 7 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 7</span>
+        <img src="../image/book%20room.jpg" alt="Open area on a top floor in Bird">
+      </div>
+      <div class="pad">
+        <div class="title">Move to a top floor</div>
+        <p>Quieter space with more open seats.</p>
+      </div>
+    </article>
 
-function render(){
-  app.innerHTML = '';
-  const grid = el('div',{class:'grid'});
-  steps.forEach(step => grid.appendChild(renderStep(step)));
-  app.appendChild(grid);
-  updateProgressBar();
-}
+    <!-- 8 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 8</span>
+        <img src="../image/2.jpg" alt="Put phone away">
+      </div>
+      <div class="pad">
+        <div class="title">Stow your phone</div>
+        <p>Backpack + notifications off to remove temptation.</p>
+      </div>
+    </article>
 
-function renderStep(step){
-  const card = el('article',{class:'card', id:`step-${step.id}`});
-  const h = el('header');
-  h.appendChild(el('div',{class:'step-num'},`Step ${step.id}`));
+    <!-- 9 -->
+    <article class="card">
+      <div class="media" aria-label="25/5 cadence">
+        <span class="num">Step 9</span>
+        <svg viewBox="0 0 200 120" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img">
+          <rect width="200" height="120" fill="#0a0f15"/>
+          <circle cx="100" cy="60" r="44" fill="none" stroke="#f97316" stroke-width="10"/>
+          <text x="100" y="60" fill="#e5e7eb" font-size="30" text-anchor="middle" dominant-baseline="middle" font-weight="700">25</text>
+          <text x="100" y="102" fill="#94a3b8" font-size="12" text-anchor="middle">+ 5 BREAK</text>
+        </svg>
+      </div>
+      <div class="pad">
+        <div class="title">Use the 25/5 routine</div>
+        <p>Work 25 minutes. Break 5. After 4 cycles, rest 15–20.</p>
+      </div>
+    </article>
 
-  const mediaBox = el('div',{class:'media', role:'img','aria-label': step.mediaHint});
-  mountMedia(mediaBox, state.media[step.id] || step.defaultMedia, step.mediaHint);
-  h.appendChild(mediaBox);
+    <!-- 10 -->
+    <article class="card">
+      <div class="media">
+        <span class="num">Step 10</span>
+        <img src="../image/2.jpg" alt="Pack belongings">
+      </div>
+      <div class="pad">
+        <div class="title">Pack up and head home</div>
+        <p>Check off the list. Note blockers and next steps.</p>
+      </div>
+    </article>
 
-  const body = el('div',{class:'pad'});
-  body.appendChild(el('div',{class:'title'}, step.title));
-  body.appendChild(el('p',{}, step.text));
+  </section>
+</main>
 
-  if(step.type === 'feature:belongings') body.appendChild(belongingsBlock());
-  if(step.type === 'feature:assignments') body.appendChild(assignmentsBlock());
-  if(step.type === 'feature:timer') body.appendChild(timerBlock());
-
-  const actions = el('div',{class:'actions'});
-  const edit = el('details',{});
-  const sum = el('summary',{}, 'Edit media');
-  const input = el('input',{type:'text',placeholder:`Paste image or video URL · Hint: ${step.mediaHint}`});
-  input.value = state.media[step.id] || '';
-  const saveBtn = el('button',{class:'primary'},'Save');
-  saveBtn.onclick = () => {
-    state.media[step.id] = input.value.trim();
-    persist();
-    mountMedia(mediaBox, state.media[step.id], step.mediaHint);
-  };
-  edit.append(sum, el('div',{class:'pad',style:'padding-left:0'}, input, el('div',{style:'height:8px'}), saveBtn));
-
-  const done = el('label',{class:'switch'},
-    el('input',{type:'checkbox', checked: state.completedSteps.has(step.id), onchange:e=>{ toggleStep(step.id, e.target.checked); }}),
-    el('span',{}, 'Mark completed')
-  );
-
-  actions.append(edit, done, el('span',{class:'pill'}, step.mediaHint));
-  body.appendChild(actions);
-
-  card.append(h, body);
-  return card;
-}
-
-function toggleStep(id, on){
-  if(on) state.completedSteps.add(id); else state.completedSteps.delete(id);
-  persist();
-}
-
-function mountMedia(box, url, hint){
-  box.innerHTML = '';
-  if(!url){ box.appendChild(el('div',{}, `No media · ${hint}`)); return; }
-  const isVideo = /(\.mp4|\.webm|\.ogg)(\?.*)?$/i.test(url);
-  const fail = ()=> box.replaceChildren(el('div',{}, 'Failed to load media. Check path/case.'));
-  if(isVideo){
-    const v = el('video',{src:url,controls:true,playsinline:true,preload:'metadata',onerror:fail});
-    box.appendChild(v);
-  } else {
-    const img = el('img',{src:url,alt:hint,loading:'lazy',onerror:fail});
-    box.appendChild(img);
-  }
-}
-
-function belongingsBlock(){
-  const wrap = el('div',{});
-  wrap.appendChild(el('div',{class:'muted'},'Belongings checklist'));
-  const list = el('div',{class:'checklist'});
-  renderBelongings(list);
-  const row = el('div',{class:'row'});
-  const inp = el('input',{type:'text',placeholder:'Add item, e.g., Water bottle',class:'grow'});
-  const add = el('button',{},'Add');
-  add.onclick = ()=>{ const t = inp.value.trim(); if(!t) return; state.belongings.push(t); inp.value=''; persist(); renderBelongings(list); };
-  const clr = el('button',{},'Clear checked');
-  clr.onclick = ()=>{ state.belongingsDone.clear(); persist(); renderBelongings(list); };
-  row.append(inp, add, clr);
-  wrap.append(list,row);
-  return wrap;
-}
-function renderBelongings(node){
-  node.innerHTML='';
-  state.belongings.forEach((item,i)=>{
-    node.appendChild(el('label',{},
-      el('input',{type:'checkbox',checked: state.belongingsDone.has(i), onchange:e=>{ if(e.target.checked) state.belongingsDone.add(i); else state.belongingsDone.delete(i); persist(); }}),
-      el('span',{}, item)
-    ));
-  });
-}
-
-function assignmentsBlock(){
-  const wrap = el('div',{});
-  wrap.appendChild(el('div',{class:'muted'},'Assignment checklist'));
-  const list = el('div',{class:'checklist'});
-  renderAssignments(list);
-  const row = el('div',{class:'row'});
-  const inp = el('input',{type:'text',placeholder:'Add task, e.g., IST 359 Lab 5',class:'grow'});
-  const add = el('button',{},'Add');
-  add.onclick = ()=>{ const t = inp.value.trim(); if(!t) return; state.assignments.push(t); inp.value=''; persist(); renderAssignments(list); };
-  const stats = el('span',{class:'pill',id:'assignStats'});
-  row.append(inp, add, stats);
-  wrap.append(list,row);
-  return wrap;
-}
-function renderAssignments(node){
-  node.innerHTML='';
-  state.assignments.forEach((item,i)=>{
-    node.appendChild(el('label',{},
-      el('input',{type:'checkbox',checked: state.assignmentsDone.has(i), onchange:e=>{ if(e.target.checked) state.assignmentsDone.add(i); else state.assignmentsDone.delete(i); persist(); updateAssignStats(); }}),
-      el('span',{}, item)
-    ));
-  });
-  updateAssignStats();
-}
-function updateAssignStats(){
-  const done = state.assignmentsDone.size; const total = state.assignments.length || 0;
-  const elStat = document.getElementById('assignStats');
-  if(elStat) elStat.textContent = `Done ${done}/${total}`;
-}
-
-// 25/5 timer
-let timerHandle = null;
-function timerBlock(){
-  const wrap = el('div',{});
-  const status = el('div',{class:'muted',id:'timerStatus'});
-  const display = el('div',{style:'font-weight:700;font-size:28px;margin:4px 0'}, formatMMSS(state.timer.mins, state.timer.secs));
-  const row = el('div',{class:'actions'});
-  const start = el('button',{class:'primary'},'Start 25/5');
-  const pause = el('button',{},'Pause');
-  const reset = el('button',{},'Reset');
-
-  start.onclick = ()=> startTimer();
-  pause.onclick = ()=> pauseTimer();
-  reset.onclick = ()=> resetTimer(display,status);
-
-  const meta = el('div',{class:'muted'},()=>`Phase: ${labelPhase()} · Cycles: ${state.timer.cycles}`);
-
-  row.append(start,pause,reset);
-  wrap.append(status, display, row, meta);
-
-  function tick(){
-    if(state.timer.secs===0){
-      if(state.timer.mins===0){
-        if(state.timer.phase==='work'){
-          state.timer.phase='break'; state.timer.mins=5; state.timer.secs=0;
-        }else if(state.timer.phase==='break'){
-          state.timer.phase='work'; state.timer.mins=25; state.timer.secs=0; state.timer.cycles++;
-        }
-      } else { state.timer.mins--; state.timer.secs=59; }
-    } else { state.timer.secs--; }
-    display.textContent = formatMMSS(state.timer.mins, state.timer.secs);
-    status.textContent = phaseTip();
-    persist();
-  }
-  function startTimer(){
-    if(state.timer.phase==='idle'){ state.timer.phase='work'; state.timer.mins=25; state.timer.secs=0; }
-    if(timerHandle) return; timerHandle = setInterval(tick, 1000); status.textContent = phaseTip(); persist();
-  }
-  function pauseTimer(){ if(timerHandle){ clearInterval(timerHandle); timerHandle=null; persist(); } }
-  function resetTimer(){ pauseTimer(); state.timer={phase:'idle',mins:25,secs:0,cycles:0}; display.textContent = formatMMSS(25,0); status.textContent=''; persist(); }
-  status.textContent = phaseTip();
-  return wrap;
-}
-function labelPhase(){
-  return state.timer.phase==='work'?'Focus': state.timer.phase==='break'?'Break':'Idle';
-}
-function phaseTip(){
-  if(state.timer.phase==='work') return 'Focus for 25 minutes.';
-  if(state.timer.phase==='break') return 'Break for 5 minutes. Walk and hydrate.';
-  return 'Click “Start 25/5” to begin.';
-}
-function formatMMSS(m,s){ return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
-
-// Progress bar
-function updateProgressBar(){
-  const done = state.completedSteps.size; const total = steps.length;
-  const pct = Math.round(done/total*100);
-  const bar = document.getElementById('progressBar');
-  if(bar) bar.style.width = pct+'%';
-}
-
-// Utility
-function el(tag, attrs, ...children){
-  const n = document.createElement(tag);
-  if(typeof attrs==='object' && attrs){
-    for(const k of Object.keys(attrs)){
-      const v = attrs[k];
-      if(k==='style' && typeof v==='string') n.setAttribute('style', v);
-      else if(k==='style' && typeof v==='object') Object.assign(n.style, v);
-      else if(k.startsWith('on')) n[k] = v;
-      else if(k==='class') n.className = v;
-      else if(k==='for') n.htmlFor = v;
-      else n.setAttribute(k, v);
-    }
-  }
-  for(const c of children){
-    if(typeof c === 'function'){ n.appendChild(document.createTextNode(c())); }
-    else if(c==null){}
-    else if(Array.isArray(c)) c.forEach(x=> n.appendChild(typeof x==='string'? document.createTextNode(x): x));
-    else n.appendChild(typeof c==='string'? document.createTextNode(c): c);
-  }
-  return n;
-}
-</script>
+<a class="top" href="#">Top</a>
 </body>
 </html>
