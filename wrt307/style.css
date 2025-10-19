@@ -54,3 +54,6 @@ h2 { font-size: 1.5rem; margin: 8px 0 16px; }
 .task .remove { border: none; background: transparent; cursor: pointer; color: #ef4444; }
 #task-stats { color: var(--muted); }
 footer { text-align: center; color: var(--muted); padding: 36px 0; }
+
+/* Make videos fit like images */
+.card video, .panel video { width: 100%; height: 180px; object-fit: cover; display: block; }
