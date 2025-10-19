@@ -9,160 +9,183 @@
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     header{position:sticky;top:0;background:linear-gradient(180deg,#0b0f14 0%,rgba(11,15,20,.85) 100%);backdrop-filter:saturate(1.2) blur(6px);z-index:10;border-bottom:1px solid var(--line)}
-    .wrap{max-width:1100px;margin:auto;padding:16px}
-    h1{margin:0;font-size:24px}
-    .muted{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-    .media{position:relative;aspect-ratio:16/9;background:#0f172a}
-    .media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
-    .num{position:absolute;top:10px;left:10px;background:#111827;border:1px solid #374151;color:#fff;padding:4px 10px;border-radius:999px;font-weight:600}
-    .pad{padding:14px}
-    .title{font-weight:700;font-size:18px;margin:0 0 8px}
-    .top{position:fixed;right:16px;bottom:16px;background:var(--brand);color:#111;border:none;border-radius:12px;padding:10px 14px;cursor:pointer}
-    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:auto;padding:20px}
+    h1{margin:8px 0 12px;font-weight:700;letter-spacing:.2px}
+    .sub{color:var(--muted);font-size:.95rem;margin-bottom:12px}
+
+    table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:var(--card)}
+    thead th{position:sticky;top:60px;background:#0d131a;border-bottom:2px solid var(--line)}
+    th,td{border:1px solid var(--line);padding:12px;vertical-align:top;text-align:left}
+    th{font-weight:700}
+    td.step{width:60px;text-align:center;font-weight:700}
+    td.visual{width:300px}
+    .media{display:block;width:100%;max-width:260px;border-radius:12px}
+    video.media{max-height:200px}
+    img.media{height:auto}
+
+    .badge{display:inline-block;padding:2px 8px;border:1px solid var(--line);border-radius:999px;font-size:.75rem;color:var(--muted)}
+    .hint{margin-top:8px;font-size:.8rem;color:var(--muted)}
+    footer{color:var(--muted);font-size:.85rem;margin:16px 0}
+    a{color:var(--brand)}
+    @media (max-width: 720px){
+      td.visual{width:auto}
+      .wrap{padding:12px}
+    }
   </style>
-  <!-- NOTE: index.html is at wrt307/wrt307/, media is at wrt307/image/, so use ../image/... -->
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>Syracuse University Study Instructions</h1>
-    <div class="muted">Purpose: where to study, how to study, how long. Simple 10-step flow.</div>
-  </div>
-</header>
+  <header>
+    <div class="wrap">
+      <h1>Syracuse University Study Instructions</h1>
+      <div class="sub">按“步骤 / 视觉 / 文本 / 音频 / 备注”渲染。将媒体文件放入 <code>./assets/images</code> 与 <code>./assets/videos</code>，文件名需与下方数据一致（全小写、连字符、无空格）。</div>
+    </div>
+  </header>
 
-<main class="wrap">
-  <section class="grid">
+  <main class="wrap">
+    <table id="steps-table" aria-describedby="table-desc">
+      <caption id="table-desc" class="hint">GitHub Pages 大小写敏感；相对路径以 <code>./assets/</code> 开头。</caption>
+      <thead>
+        <tr>
+          <th scope="col">STEP</th>
+          <th scope="col">VISUALS</th>
+          <th scope="col">TEXT</th>
+          <th scope="col">AUDIO</th>
+          <th scope="col">MISC.</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-    <!-- 1 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 1</span>
-        <img src="../image/2.jpg" alt="Belongings checklist">
-      </div>
-      <div class="pad">
-        <div class="title">Belongings checklist</div>
-        <p>Pack ID, laptop, charger, headphones, notebook, water, snack.</p>
-      </div>
-    </article>
+    <footer class="hint">如需更名，只改动下方 <code>steps</code> 数组中的文件名与文案，无需动 HTML。</footer>
+  </main>
 
-    <!-- 2 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 2</span>
-        <img src="../image/4.jpg" alt="Schine Student Center">
-      </div>
-      <div class="pad">
-        <div class="title">Go to Schine Student Center</div>
-        <p>Pick simple food. Avoid heavy or high-sugar options.</p>
-      </div>
-    </article>
+  <script>
+    // 所有路径均为相对路径，统一从 ./assets/ 开始
+    const steps = [
+      {
+        step: 1,
+        visual: { path: 'images/checklist-belongings.jpg', alt: 'checklist of belongings' },
+        text: 'The first step would be to gather all of their belongings necessary to their study session',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 2,
+        visual: { path: 'images/schine-student-center.jpg', alt: 'image of Schine Student Center' },
+        text: 'Head to Schine Student Center and pick up food from their numerous options',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 3,
+        visual: { path: 'videos/schine-food-court.mp4', alt: 'short video of the food court' },
+        text: 'In addition to food, pick up a caffeine boost such as a coffee from Dunkin or an energy drink',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 4,
+        visual: { path: 'images/campus-map-bird-library.jpg', alt: 'Map of campus, photos of Bird Library' },
+        text: 'Next, head to Bird Library as it is a quiet location where you can focus and avoid being easily distracted',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 5,
+        visual: { path: 'videos/route-door-to-underground.mp4', alt: 'short video of the route from the door to underground' },
+        text: 'When you arrive at Bird, head downstairs where you can enjoy your food and get started on your assignments',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 6,
+        visual: { path: 'images/assignments-checklist.jpg', alt: 'Photo of a checklist of assignments' },
+        text: 'While you are eating, make a checklist of what you want to get done to hold yourself accountable',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 7,
+        visual: { path: 'images/bird-top-floor-open-area.jpg', alt: 'Photo of an open area on a top floor of Bird Library' },
+        text: 'Once you finish your food, head to one of the top floors in Bird as it is quieter and more open seats will be available',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 8,
+        visual: { path: 'images/phone-in-backpack.jpg', alt: 'Photo of your phone far away in backpack' },
+        text: 'Once you find a nice place to study, put your phone in your backpack so you will not be tempted to use it when you are studying',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 9,
+        visual: { path: 'images/pomodoro-25-5.jpg', alt: 'An AI image of the 25 minutes work 5 minute break routine' },
+        text: 'For every 25 minutes you work on assignments, give yourself a five minute break to keep you motivated. Make sure to hold yourself accountable to this schedule',
+        audio: null,
+        misc: ''
+      },
+      {
+        step: 10,
+        visual: { path: 'images/belongings-checkoff.jpg', alt: 'Checklist of belongings and how many work finished' },
+        text: 'Once you complete all of the assignments on the checklist you made earlier, pack up your belongings and return back home after a job well done',
+        audio: null,
+        misc: ''
+      }
+    ];
 
-    <!-- 3 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 3</span>
-        <video src="../image/3.mp4" controls playsinline preload="metadata"></video>
-      </div>
-      <div class="pad">
-        <div class="title">Grab a caffeine boost</div>
-        <p>Small coffee or energy drink to stay alert.</p>
-      </div>
-    </article>
+    function renderRow(item){
+      const tr = document.createElement('tr');
 
-    <!-- 4 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 4</span>
-        <img src="../image/4.1.jpg" alt="Campus map and Bird Library">
-      </div>
-      <div class="pad">
-        <div class="title">Walk to Bird Library</div>
-        <p>Choose a quiet zone to reduce distractions.</p>
-      </div>
-    </article>
+      const tdStep = document.createElement('td');
+      tdStep.className = 'step';
+      tdStep.textContent = item.step;
 
-    <!-- 5 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 5</span>
-        <video src="../image/5.mp4" controls playsinline preload="metadata"></video>
-      </div>
-      <div class="pad">
-        <div class="title">Go downstairs at Bird</div>
-        <p>Eat on the lower level and outline tasks.</p>
-      </div>
-    </article>
+      const tdVisual = document.createElement('td');
+      tdVisual.className = 'visual';
+      const isVideo = /\.(mp4|webm|ogg)$/i.test(item.visual.path);
+      if(isVideo){
+        const v = document.createElement('video');
+        v.className = 'media';
+        v.controls = true;
+        v.preload = 'metadata';
+        const src = document.createElement('source');
+        src.src = `./assets/${item.visual.path}`;
+        src.type = `video/${item.visual.path.split('.').pop().toLowerCase()}`;
+        v.appendChild(src);
+        v.insertAdjacentHTML('beforeend', 'Your browser does not support the video tag.');
+        tdVisual.appendChild(v);
+      }else{
+        const img = document.createElement('img');
+        img.className = 'media';
+        img.loading = 'lazy';
+        img.src = `./assets/${item.visual.path}`;
+        img.alt = item.visual.alt || 'visual';
+        tdVisual.appendChild(img);
+      }
 
-    <!-- 6 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 6</span>
-        <img src="../image/7.jpg" alt="Assignment checklist">
-      </div>
-      <div class="pad">
-        <div class="title">Make your assignment checklist</div>
-        <p>List 3–5 doable items in priority order.</p>
-      </div>
-    </article>
+      const tdText = document.createElement('td');
+      tdText.textContent = item.text;
 
-    <!-- 7 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 7</span>
-        <img src="../image/book%20room.jpg" alt="Open area on a top floor in Bird">
-      </div>
-      <div class="pad">
-        <div class="title">Move to a top floor</div>
-        <p>Quieter space with more open seats.</p>
-      </div>
-    </article>
+      const tdAudio = document.createElement('td');
+      if(item.audio){
+        const a = document.createElement('audio');
+        a.controls = true;
+        a.src = `./assets/${item.audio}`; // e.g. 'audio/step1.mp3'
+        tdAudio.appendChild(a);
+      } else {
+        tdAudio.innerHTML = '<span class="badge">optional</span>';
+      }
 
-    <!-- 8 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 8</span>
-        <img src="../image/2.jpg" alt="Put phone away">
-      </div>
-      <div class="pad">
-        <div class="title">Stow your phone</div>
-        <p>Backpack + notifications off to remove temptation.</p>
-      </div>
-    </article>
+      const tdMisc = document.createElement('td');
+      tdMisc.textContent = item.misc || '';
 
-    <!-- 9 -->
-    <article class="card">
-      <div class="media" aria-label="25/5 cadence">
-        <span class="num">Step 9</span>
-        <svg viewBox="0 0 200 120" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img">
-          <rect width="200" height="120" fill="#0a0f15"/>
-          <circle cx="100" cy="60" r="44" fill="none" stroke="#f97316" stroke-width="10"/>
-          <text x="100" y="60" fill="#e5e7eb" font-size="30" text-anchor="middle" dominant-baseline="middle" font-weight="700">25</text>
-          <text x="100" y="102" fill="#94a3b8" font-size="12" text-anchor="middle">+ 5 BREAK</text>
-        </svg>
-      </div>
-      <div class="pad">
-        <div class="title">Use the 25/5 routine</div>
-        <p>Work 25 minutes. Break 5. After 4 cycles, rest 15–20.</p>
-      </div>
-    </article>
+      tr.append(tdStep, tdVisual, tdText, tdAudio, tdMisc);
+      return tr;
+    }
 
-    <!-- 10 -->
-    <article class="card">
-      <div class="media">
-        <span class="num">Step 10</span>
-        <img src="../image/2.jpg" alt="Pack belongings">
-      </div>
-      <div class="pad">
-        <div class="title">Pack up and head home</div>
-        <p>Check off the list. Note blockers and next steps.</p>
-      </div>
-    </article>
-
-  </section>
-</main>
-
-<a class="top" href="#">Top</a>
+    const tbody = document.querySelector('#steps-table tbody');
+    steps.forEach(s => tbody.appendChild(renderRow(s)));
+  </script>
 </body>
 </html>
