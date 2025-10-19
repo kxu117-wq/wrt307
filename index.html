@@ -1,174 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Study Routine Guide</title>
+  <title>Study Sprint @ Syracuse</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="container">
-  <h1>Study Routine Guide</h1>
-  <p class="tagline">A simple plan for focused work at Syracuse University</p>
+<header class="site-header">
+  <h1>Study Sprint @ Syracuse</h1>
+  <nav>
+    <a href="#steps">Steps</a>
+    <a href="#media">Media</a>
+    <a href="#checklists">Checklists</a>
+    <a href="#pomodoro">25/5 Image</a>
+  </nav>
 </header>
 
-<main>
-  <section class="container" id="steps">
-    <h2>Steps</h2>
-    <div class="grid">
-      <!-- Step 1 -->
-      <article class="card">
-        <img src="assets/step1.png" alt="Checklist of belongings image">
-        <div class="content">
-          <h3>1) Checklist of belongings</h3>
-          <p>Gather everything needed for your study session: laptop, charger, notebook, student ID, headphones, water, and snacks.</p>
-        </div>
-      </article>
+<section class="hero" aria-label="Schine Student Center">
+  <img src="assets/schine.jpg" alt="Schine Student Center exterior" />
+  <div class="hero-text">
+    <h2>From Schine to Bird: a focused study routine</h2>
+    <p>Keep it simple. Fuel up, relocate, work in focused blocks.</p>
+  </div>
+</section>
 
-      <!-- Step 2 -->
-      <article class="card">
-        <img src="assets/schine.jpg" alt="Schine Student Center entrance photo">
-        <div class="content">
-          <h3>2) Pick up food at Schine</h3>
-          <p>Head to Schine Student Center. Choose a quick meal that will keep you energized.</p>
-        </div>
-      </article>
+<section id="steps" class="steps">
+  <h2>10‑Step Study Flow</h2>
 
-      <!-- Step 3 -->
-      <article class="card">
-        <video src="assets/food_court.mp4" preload="metadata" controls></video>
-        <div class="content">
-          <h3>3) Add a caffeine boost</h3>
-          <p>Grab coffee from Dunkin' or an energy drink if you prefer.</p>
-        </div>
-      </article>
-
-      <!-- Step 4 -->
-      <article class="card">
-        <img src="assets/bird_library.jpg" alt="Bird Library entrance photo">
-        <div class="content">
-          <h3>4) Go to Bird Library</h3>
-          <p>Bird is a quiet place to focus and avoid distractions.</p>
-        </div>
-      </article>
-
-      <!-- Step 5 -->
-      <article class="card">
-        <video src="assets/route_underground.mp4" preload="metadata" controls></video>
-        <div class="content">
-          <h3>5) Head downstairs</h3>
-          <p>Go to the underground level where you can eat and get started on assignments.</p>
-        </div>
-      </article>
-
-      <!-- Step 6 -->
-      <article class="card">
-        <img src="assets/step6.png" alt="Assignments checklist">
-        <div class="content">
-          <h3>6) Make an assignments checklist</h3>
-          <p>Write down what you will complete today. This builds accountability.</p>
-        </div>
-      </article>
-
-      <!-- Step 7 -->
-      <article class="card">
-        <img src="assets/study_area.jpg" alt="Study area inside Bird Library">
-        <div class="content">
-          <h3>7) Move to a quiet floor</h3>
-          <p>Find a seat on one of the upper floors where it is usually quieter.</p>
-        </div>
-      </article>
-
-      <!-- Step 8 -->
-      <article class="card">
-        <img src="assets/step8.png" alt="Phone stored away in backpack">
-        <div class="content">
-          <h3>8) Phone far away</h3>
-          <p>Put your phone in your backpack so it is not accessible during study.</p>
-        </div>
-      </article>
-
-      <!-- Step 9 -->
-      <article class="card">
-        <img src="assets/step9.png" alt="25 minutes work 5 minutes break routine">
-        <div class="content">
-          <h3>9) Use the 25/5 routine</h3>
-          <p>Work for 25 minutes. Take a 5 minute break. Repeat until finished.</p>
-        </div>
-      </article>
-
-      <!-- Step 10 -->
-      <article class="card">
-        <img src="assets/step10.png" alt="Pack and return home after work done">
-        <div class="content">
-          <h3>10) Pack up</h3>
-          <p>When your checklist is complete, pack your belongings and head home.</p>
-        </div>
-      </article>
+  <article class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h3>Gather belongings</h3>
+      <p>The first step would be to gather all of their belongings necessary to their study session.</p>
     </div>
-  </section>
+  </article>
 
-  <section class="container" id="belongings">
-    <h2>Checklist of Belongings</h2>
-    <div class="panel">
-      <img src="assets/belongings_checklist.png" alt="Belongings checklist graphic">
-      <form id="belongings-form" aria-label="Belongings checklist">
-        <label><input type="checkbox" data-key="laptop"> Laptop</label>
-        <label><input type="checkbox" data-key="charger"> Charger</label>
-        <label><input type="checkbox" data-key="notebook"> Notebook</label>
-        <label><input type="checkbox" data-key="id"> Student ID</label>
-        <label><input type="checkbox" data-key="headphones"> Headphones</label>
-        <label><input type="checkbox" data-key="water"> Water bottle</label>
-        <label><input type="checkbox" data-key="snacks"> Snacks</label>
-        <button type="button" id="clear-belongings">Clear</button>
+  <article class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h3>Head to Schine Student Center</h3>
+      <p>Head to Schine Student Center and pick up food from their numerous options.</p>
+      <img class="inline-media" src="assets/schine.jpg" alt="Schine Student Center entrance" />
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h3>Pick up a caffeine boost</h3>
+      <p>In addition to food, pick up a caffeine boost such as a coffee from Dunkin or an energy drink.</p>
+      <video class="inline-media" controls src="assets/foodcourt.mp4"></video>
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h3>Move to Bird Library</h3>
+      <p>Next, head to Bird Library as it is a quiet location where you can focus and avoid being easily distracted.</p>
+      <img class="inline-media" src="assets/bird.jpg" alt="Bird Library front entrance" />
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h3>Go downstairs to eat and start</h3>
+      <p>When you arrive at Bird, head downstairs where you can enjoy your food and get started on your assignments.</p>
+      <video class="inline-media" controls src="assets/route.mp4"></video>
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <h3>Write an assignments checklist</h3>
+      <p>While you are eating, make a checklist of what you want to get done to hold yourself accountable.</p>
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <h3>Find a quiet open area</h3>
+      <p>Once you finish your food, head to one of the top floors in Bird as it is quieter and more open seats will be available.</p>
+      <img class="inline-media" src="assets/bird_top.jpg" alt="Open study area on a top floor of Bird Library" />
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">8</div>
+    <div class="step-body">
+      <h3>Place your phone far away</h3>
+      <p>Once you find a nice place to study, put your phone into your backpack so you will not be tempted to use it when you are studying.</p>
+      <div class="uploader">
+        <label for="phoneUpload" class="btn">Upload your “phone far away” photo</label>
+        <input id="phoneUpload" type="file" accept="image/*" />
+        <img id="phonePreview" alt="Preview of phone placed far away" />
+      </div>
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">9</div>
+    <div class="step-body">
+      <h3>Work 25 minutes, break 5</h3>
+      <p>For every 25 minutes you work on assignments, give yourself a five minute break to keep you motivated. Make sure to hold yourself accountable to this schedule.</p>
+      <div id="pomodoro" class="pomodoro" aria-label="AI-style image of 25/5 routine">
+        <!-- Accessible inline SVG representing the 25/5 routine -->
+        <svg viewBox="0 0 200 200" role="img" aria-labelledby="title desc">
+          <title id="title">25/5 Focus Cycle</title>
+          <desc id="desc">Circular visual: 25-minute work segment and 5-minute break segment.</desc>
+          <circle cx="100" cy="100" r="90" fill="none" stroke-width="16" stroke="#e5e7eb"/>
+          <!-- 25-minute work arc (25/30 of circle) -->
+          <path d="M100,10 A90,90 0 1,1 51.7,26.8" fill="none" stroke-width="16" stroke="#111827" />
+          <!-- 5-minute break arc (remaining 1/6 of circle) -->
+          <path d="M51.7,26.8 A90,90 0 0,1 100,10" fill="none" stroke-width="16" stroke="#6b7280" />
+          <text x="100" y="98" text-anchor="middle" font-size="44" font-family="system-ui, -apple-system, Segoe UI, Roboto">25</text>
+          <text x="100" y="128" text-anchor="middle" font-size="16" font-family="system-ui, -apple-system, Segoe UI, Roboto">work • 5 break</text>
+        </svg>
+      </div>
+    </div>
+  </article>
+
+  <article class="step">
+    <div class="step-num">10</div>
+    <div class="step-body">
+      <h3>Pack and head home</h3>
+      <p>Once you complete all of the assignments on the checklist you made earlier, pack up your belongings and return back home after a job well done.</p>
+    </div>
+  </article>
+</section>
+
+<section id="media" class="media">
+  <h2>Media Gallery</h2>
+  <div class="grid">
+    <figure>
+      <img src="assets/schine.jpg" alt="Schine Student Center" />
+      <figcaption>Schine Student Center</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/bird.jpg" alt="Bird Library" />
+      <figcaption>Bird Library entrance</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/bird_top.jpg" alt="Top floor open area at Bird Library" />
+      <figcaption>Open area on a top floor of Bird</figcaption>
+    </figure>
+    <figure class="wide">
+      <video controls src="assets/foodcourt.mp4"></video>
+      <figcaption>Short video of the food court</figcaption>
+    </figure>
+    <figure class="wide">
+      <video controls src="assets/route.mp4"></video>
+      <figcaption>Route from door to underground at Bird</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="checklists" class="checklists">
+  <h2>Checklists</h2>
+
+  <div class="lists">
+    <div class="list-card">
+      <h3>Checklist of belongings</h3>
+      <form class="adder" data-target="belongings">
+        <input type="text" placeholder="Add item (e.g., laptop charger)" aria-label="New belongings item" />
+        <button type="submit" class="btn">Add</button>
       </form>
-    </div>
-  </section>
-
-  <section class="container" id="phone-away">
-    <h2>Phone Far Away</h2>
-    <div class="panel">
-      <img src="assets/phone_far.png" alt="Phone placed far away from study desk">
-      <div class="content">
-        <p>Store your phone out of reach while you study. If needed, enable <em>Do Not Disturb</em> and put it in your bag.</p>
+      <ul id="belongings" class="todo"></ul>
+      <div class="meta">
+        <span id="belongings-count">0 complete</span>
+        <button class="link" data-clear="belongings">Reset</button>
       </div>
     </div>
-  </section>
 
-  <section class="container" id="pomodoro">
-    <h2>25 Minutes Work • 5 Minutes Break</h2>
-    <div class="panel">
-      <img src="assets/pomodoro_ai.png" alt="AI-style infographic of 25-5 routine">
-      <div class="timer">
-        <div id="mode-label" aria-live="polite">Mode: Work</div>
-        <div id="clock" aria-live="polite">25:00</div>
-        <div class="controls">
-          <button id="start">Start</button>
-          <button id="pause">Pause</button>
-          <button id="reset">Reset</button>
-        </div>
+    <div class="list-card">
+      <h3>Assignments checklist</h3>
+      <form class="adder" data-target="assignments">
+        <input type="text" placeholder="Add task (e.g., IST 359 HW Q1–Q5)" aria-label="New assignment" />
+        <button type="submit" class="btn">Add</button>
+      </form>
+      <ul id="assignments" class="todo"></ul>
+      <div class="meta">
+        <span id="assignments-count">0 of 0 finished</span>
+        <button class="link" data-clear="assignments">Reset</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="container" id="progress">
-    <h2>Assignments Progress</h2>
-    <div class="panel">
-      <img src="assets/progress_checklist.png" alt="Assignments progress graphic">
-      <div class="tasks">
-        <form id="task-form">
-          <input type="text" id="task-input" placeholder="Add a task (e.g., IST 359 HW #3)" aria-label="Add task">
-          <button type="submit">Add</button>
-        </form>
-        <ul id="task-list" aria-live="polite"></ul>
-        <p id="task-stats">0 / 0 finished</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="container">
-  <p>Made for a simple, distraction-free workflow. All content in English.</p>
+<footer class="site-footer">
+  <p>Built with HTML, CSS, and vanilla JS. All text is in English as requested.</p>
 </footer>
 
 <script src="script.js"></script>

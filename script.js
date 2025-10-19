@@ -1,138 +1,87 @@
-// Local storage helpers
-const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
-const load = (k, fallback) => {
-  try { const v = JSON.parse(localStorage.getItem(k)); return v ?? fallback; }
-  catch { return fallback; }
+// Simple checklist + progress with localStorage
+
+const qs = (s, el=document) => el.querySelector(s);
+const qsa = (s, el=document) => [...el.querySelectorAll(s)];
+
+const store = {
+  get(key, fallback){ try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } },
+  set(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
 };
 
-// Belongings checklist
-(() => {
-  const form = document.getElementById('belongings-form');
-  if (!form) return;
-  const keys = Array.from(form.querySelectorAll('input[type="checkbox"]')).map(i => i.dataset.key);
-  const state = load('belongings', {});
-  for (const input of form.querySelectorAll('input[type="checkbox"]')) {
-    input.checked = !!state[input.dataset.key];
-    input.addEventListener('change', () => {
-      state[input.dataset.key] = input.checked;
-      store('belongings', state);
+function renderList(id){
+  const ul = qs('#'+id);
+  const items = store.get(id, []);
+  ul.innerHTML = '';
+  items.forEach((it, idx) => {
+    const li = document.createElement('li');
+    li.className = it.done ? 'done' : '';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = it.done;
+    cb.addEventListener('change', () => {
+      items[idx].done = cb.checked;
+      store.set(id, items);
+      renderList(id);
     });
-  }
-  document.getElementById('clear-belongings').addEventListener('click', () => {
-    for (const input of form.querySelectorAll('input[type="checkbox"]')) input.checked = false;
-    keys.forEach(k => state[k] = false);
-    store('belongings', state);
-  });
-})();
-
-// Pomodoro timer
-(() => {
-  const startBtn = document.getElementById('start');
-  const pauseBtn = document.getElementById('pause');
-  const resetBtn = document.getElementById('reset');
-  const clock = document.getElementById('clock');
-  const modeLabel = document.getElementById('mode-label');
-
-  let isRunning = false;
-  let mode = 'work'; // 'work' or 'break'
-  let remaining = 25 * 60;
-  let timerId = null;
-
-  function format(sec) {
-    const m = String(Math.floor(sec / 60)).padStart(2, '0');
-    const s = String(sec % 60).padStart(2, '0');
-    return `${m}:${s}`;
-  }
-  function updateUI() {
-    clock.textContent = format(remaining);
-    modeLabel.textContent = `Mode: ${mode === 'work' ? 'Work' : 'Break'}`;
-    document.title = `${clock.textContent} • ${mode}`;
-  }
-  function tick() {
-    if (!isRunning) return;
-    remaining -= 1;
-    if (remaining <= 0) {
-      // switch modes
-      mode = mode === 'work' ? 'break' : 'work';
-      remaining = mode === 'work' ? 25 * 60 : 5 * 60;
-      // simple alert
-      try { new AudioContext(); } catch {}
-      alert(`Time for ${mode === 'work' ? 'work' : 'a break'}!`);
-    }
-    updateUI();
-  }
-
-  startBtn.addEventListener('click', () => {
-    if (isRunning) return;
-    isRunning = true;
-    timerId = setInterval(tick, 1000);
-  });
-  pauseBtn.addEventListener('click', () => {
-    isRunning = false;
-    clearInterval(timerId);
-  });
-  resetBtn.addEventListener('click', () => {
-    isRunning = false;
-    clearInterval(timerId);
-    mode = 'work';
-    remaining = 25 * 60;
-    updateUI();
-  });
-  updateUI();
-})();
-
-// Tasks checklist with counts
-(() => {
-  const listEl = document.getElementById('task-list');
-  const form = document.getElementById('task-form');
-  const input = document.getElementById('task-input');
-  const stats = document.getElementById('task-stats');
-  if (!listEl) return;
-
-  let tasks = load('tasks', []);
-
-  function render() {
-    listEl.innerHTML = '';
-    tasks.forEach((t, idx) => {
-      const li = document.createElement('li');
-      li.className = 'task';
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.checked = !!t.done;
-      cb.addEventListener('change', () => {
-        t.done = cb.checked;
-        store('tasks', tasks);
-        render();
-      });
-      const span = document.createElement('span');
-      span.className = 'title';
-      span.textContent = t.title;
-      const rm = document.createElement('button');
-      rm.className = 'remove';
-      rm.title = 'Remove task';
-      rm.textContent = '✕';
-      rm.addEventListener('click', () => {
-        tasks.splice(idx, 1);
-        store('tasks', tasks);
-        render();
-      });
-      li.append(cb, span, rm);
-      listEl.appendChild(li);
+    const span = document.createElement('span');
+    span.textContent = it.text;
+    const del = document.createElement('button');
+    del.className = 'remove';
+    del.textContent = 'Delete';
+    del.addEventListener('click', () => {
+      items.splice(idx,1);
+      store.set(id, items);
+      renderList(id);
     });
-    const total = tasks.length;
-    const done = tasks.filter(t => t.done).length;
-    stats.textContent = `${done} / ${total} finished`;
-  }
+    li.append(cb, span, del);
+    ul.append(li);
+  });
+  // Update counts
+  const done = items.filter(i=>i.done).length;
+  const total = items.length;
+  const label = id === 'belongings' ? `${done} complete` : `${done} of ${total} finished`;
+  qs(`#${id}-count`).textContent = label;
+}
 
+function wireAdder(form){
+  const id = form.dataset.target;
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const title = input.value.trim();
-    if (!title) return;
-    tasks.push({ title, done: false });
-    input.value = '';
-    store('tasks', tasks);
-    render();
+    const input = form.querySelector('input');
+    const text = input.value.trim();
+    if(!text) return;
+    const items = store.get(id, []);
+    items.push({ text, done:false });
+    store.set(id, items);
+    input.value='';
+    renderList(id);
   });
+}
 
-  render();
-})();
+function wireReset(btn){
+  const id = btn.dataset.clear;
+  btn.addEventListener('click', () => {
+    if(confirm('Clear all items?')){
+      store.set(id, []);
+      renderList(id);
+    }
+  });
+}
+
+// File upload preview for "phone far away" image
+const phoneUpload = qs('#phoneUpload');
+const phonePreview = qs('#phonePreview');
+if (phoneUpload){
+  phoneUpload.addEventListener('change', () => {
+    const f = phoneUpload.files && phoneUpload.files[0];
+    if(!f) return;
+    const url = URL.createObjectURL(f);
+    phonePreview.src = url;
+    phonePreview.alt = 'Uploaded photo of your phone placed far away';
+  });
+}
+
+// Init
+['belongings','assignments'].forEach(id => renderList(id));
+qsa('form.adder').forEach(wireAdder);
+qsa('[data-clear]').forEach(wireReset);
