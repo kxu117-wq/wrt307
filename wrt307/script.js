@@ -1,11 +1,20 @@
-// Local storage helpers
+// ===== Local storage helpers =====
 const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 const load = (k, fallback) => {
   try { const v = JSON.parse(localStorage.getItem(k)); return v ?? fallback; }
   catch { return fallback; }
 };
 
-// Belongings checklist
+// ===== Reveal on scroll =====
+(() => {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold: .12});
+  els.forEach(el => io.observe(el));
+})();
+
+// ===== Belongings checklist =====
 (() => {
   const form = document.getElementById('belongings-form');
   if (!form) return;
@@ -25,40 +34,59 @@ const load = (k, fallback) => {
   });
 })();
 
-// Pomodoro timer
+// ===== Pomodoro timer with conic progress =====
 (() => {
   const startBtn = document.getElementById('start');
   const pauseBtn = document.getElementById('pause');
   const resetBtn = document.getElementById('reset');
   const clock = document.getElementById('clock');
   const modeLabel = document.getElementById('mode-label');
+  const ring = document.getElementById('ring');
 
   let isRunning = false;
   let mode = 'work'; // 'work' or 'break'
   let remaining = 25 * 60;
   let timerId = null;
 
+  const total = () => (mode === 'work' ? 25*60 : 5*60);
+
   function format(sec) {
     const m = String(Math.floor(sec / 60)).padStart(2, '0');
     const s = String(sec % 60).padStart(2, '0');
     return `${m}:${s}`;
   }
+  function updateRing(){
+    const elapsed = total() - remaining;
+    const deg = Math.max(0, Math.min(360, (elapsed / total()) * 360));
+    ring.style.setProperty('--p', `${deg}deg`);
+  }
   function updateUI() {
     clock.textContent = format(remaining);
     modeLabel.textContent = `Mode: ${mode === 'work' ? 'Work' : 'Break'}`;
-    document.title = `${clock.textContent} • ${mode}`;
+    document.title = `${clock.textContent} • ${mode === 'work' ? 'Work 🔶' : 'Break 🔷'}`;
+    updateRing();
+  }
+  function chime(){
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator(); const g = ctx.createGain();
+      o.type='sine'; o.frequency.value = 880; g.gain.value=.001;
+      o.connect(g).connect(ctx.destination); o.start();
+      g.gain.exponentialRampToValueAtTime(.2, ctx.currentTime + .02);
+      g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + .25);
+      o.stop(ctx.currentTime + .26);
+      if (navigator.vibrate) navigator.vibrate([60, 30, 60]);
+    } catch {}
+  }
+  function switchMode(){
+    mode = mode === 'work' ? 'break' : 'work';
+    remaining = total();
+    chime();
   }
   function tick() {
     if (!isRunning) return;
     remaining -= 1;
-    if (remaining <= 0) {
-      // switch modes
-      mode = mode === 'work' ? 'break' : 'work';
-      remaining = mode === 'work' ? 25 * 60 : 5 * 60;
-      // simple alert
-      try { new AudioContext(); } catch {}
-      alert(`Time for ${mode === 'work' ? 'work' : 'a break'}!`);
-    }
+    if (remaining <= 0) switchMode();
     updateUI();
   }
 
@@ -81,12 +109,14 @@ const load = (k, fallback) => {
   updateUI();
 })();
 
-// Tasks checklist with counts
+// ===== Tasks checklist with counts + progress bar =====
 (() => {
   const listEl = document.getElementById('task-list');
   const form = document.getElementById('task-form');
   const input = document.getElementById('task-input');
   const stats = document.getElementById('task-stats');
+  const clearBtn = document.getElementById('clear-tasks');
+  const bar = document.getElementById('bar');
   if (!listEl) return;
 
   let tasks = load('tasks', []);
@@ -110,6 +140,7 @@ const load = (k, fallback) => {
       const rm = document.createElement('button');
       rm.className = 'remove';
       rm.title = 'Remove task';
+      rm.setAttribute('aria-label', `Remove ${t.title}`);
       rm.textContent = '✕';
       rm.addEventListener('click', () => {
         tasks.splice(idx, 1);
@@ -122,6 +153,8 @@ const load = (k, fallback) => {
     const total = tasks.length;
     const done = tasks.filter(t => t.done).length;
     stats.textContent = `${done} / ${total} finished`;
+    const pct = total ? (done/total)*100 : 0;
+    bar.style.width = `${pct}%`;
   }
 
   form.addEventListener('submit', e => {
@@ -130,6 +163,12 @@ const load = (k, fallback) => {
     if (!title) return;
     tasks.push({ title, done: false });
     input.value = '';
+    store('tasks', tasks);
+    render();
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    tasks = [];
     store('tasks', tasks);
     render();
   });

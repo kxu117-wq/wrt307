@@ -7,109 +7,111 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="container">
+<header class="container hero reveal">
+  <div class="hero-badge">Syracuse • Focus Mode</div>
   <h1>Study Routine Guide</h1>
-  <p class="tagline">A simple plan for focused work at Syracuse University</p>
+  <p class="tagline">A simple, high-focus plan at Syracuse University</p>
+  <div class="hero-wave" aria-hidden="true"></div>
 </header>
 
 <main>
-  <section class="container" id="steps">
-    <h2>Steps</h2>
+  <section class="container section reveal" id="steps">
+    <h2 class="section-title"><span>Steps</span></h2>
     <div class="grid">
       <!-- Step 1 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/step1.png" alt="Checklist of belongings image">
         <div class="content">
           <h3>1) Checklist of belongings</h3>
-          <p>Gather everything needed for your study session: laptop, charger, notebook, student ID, headphones, water, and snacks.</p>
+          <p>Gather everything needed: laptop, charger, notebook, student ID, headphones, water, snacks.</p>
         </div>
       </article>
 
       <!-- Step 2 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/schine.jpg" alt="Schine Student Center entrance photo">
         <div class="content">
           <h3>2) Pick up food at Schine</h3>
-          <p>Head to Schine Student Center. Choose a quick meal that will keep you energized.</p>
+          <p>Head to Schine Student Center. Choose a quick meal that sustains energy.</p>
         </div>
       </article>
 
       <!-- Step 3 -->
-      <article class="card">
-        <video src="assets/food_court.mp4" preload="metadata" controls></video>
+      <article class="card rise">
+        <video src="assets/food_court.mp4" preload="metadata" controls playsinline></video>
         <div class="content">
           <h3>3) Add a caffeine boost</h3>
-          <p>Grab coffee from Dunkin' or an energy drink if you prefer.</p>
+          <p>Grab coffee from Dunkin’ or an energy drink if you prefer.</p>
         </div>
       </article>
 
       <!-- Step 4 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/bird_library.jpg" alt="Bird Library entrance photo">
         <div class="content">
           <h3>4) Go to Bird Library</h3>
-          <p>Bird is a quiet place to focus and avoid distractions.</p>
+          <p>Bird offers quiet space to focus and avoid distractions.</p>
         </div>
       </article>
 
       <!-- Step 5 -->
-      <article class="card">
-        <video src="assets/route_underground.mp4" preload="metadata" controls></video>
+      <article class="card rise">
+        <video src="assets/route_underground.mp4" preload="metadata" controls playsinline></video>
         <div class="content">
           <h3>5) Head downstairs</h3>
-          <p>Go to the underground level where you can eat and get started on assignments.</p>
+          <p>Use the underground level to eat and start assignments.</p>
         </div>
       </article>
 
       <!-- Step 6 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/step6.png" alt="Assignments checklist">
         <div class="content">
           <h3>6) Make an assignments checklist</h3>
-          <p>Write down what you will complete today. This builds accountability.</p>
+          <p>Write today’s tasks. Build accountability.</p>
         </div>
       </article>
 
       <!-- Step 7 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/study_area.jpg" alt="Study area inside Bird Library">
         <div class="content">
           <h3>7) Move to a quiet floor</h3>
-          <p>Find a seat on one of the upper floors where it is usually quieter.</p>
+          <p>Pick a seat on an upper floor where it is quieter.</p>
         </div>
       </article>
 
       <!-- Step 8 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/step8.png" alt="Phone stored away in backpack">
         <div class="content">
           <h3>8) Phone far away</h3>
-          <p>Put your phone in your backpack so it is not accessible during study.</p>
+          <p>Put your phone in your bag. Enable Do Not Disturb.</p>
         </div>
       </article>
 
       <!-- Step 9 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/step9.png" alt="25 minutes work 5 minutes break routine">
         <div class="content">
           <h3>9) Use the 25/5 routine</h3>
-          <p>Work for 25 minutes. Take a 5 minute break. Repeat until finished.</p>
+          <p>Work 25 minutes. Break 5 minutes. Repeat.</p>
         </div>
       </article>
 
       <!-- Step 10 -->
-      <article class="card">
+      <article class="card rise">
         <img src="assets/step10.png" alt="Pack and return home after work done">
         <div class="content">
           <h3>10) Pack up</h3>
-          <p>When your checklist is complete, pack your belongings and head home.</p>
+          <p>Checklist complete. Pack and head home.</p>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="container" id="belongings">
-    <h2>Checklist of Belongings</h2>
+  <section class="container section section--ink reveal" id="belongings">
+    <h2 class="section-title section-title--light"><span>Checklist of Belongings</span></h2>
     <div class="panel">
       <img src="assets/belongings_checklist.png" alt="Belongings checklist graphic">
       <form id="belongings-form" aria-label="Belongings checklist">
@@ -120,46 +122,58 @@
         <label><input type="checkbox" data-key="headphones"> Headphones</label>
         <label><input type="checkbox" data-key="water"> Water bottle</label>
         <label><input type="checkbox" data-key="snacks"> Snacks</label>
-        <button type="button" id="clear-belongings">Clear</button>
+        <div class="inline">
+          <button type="button" id="clear-belongings" class="btn ghost">Clear</button>
+        </div>
       </form>
     </div>
   </section>
 
-  <section class="container" id="phone-away">
-    <h2>Phone Far Away</h2>
+  <section class="container section reveal" id="phone-away">
+    <h2 class="section-title"><span>Phone Far Away</span></h2>
     <div class="panel">
       <img src="assets/phone_far.png" alt="Phone placed far away from study desk">
       <div class="content">
-        <p>Store your phone out of reach while you study. If needed, enable <em>Do Not Disturb</em> and put it in your bag.</p>
+        <p>Store your phone out of reach. If needed, enable <em>Do Not Disturb</em> and place it in your bag.</p>
       </div>
     </div>
   </section>
 
-  <section class="container" id="pomodoro">
-    <h2>25 Minutes Work • 5 Minutes Break</h2>
-    <div class="panel">
-      <img src="assets/pomodoro_ai.png" alt="AI-style infographic of 25-5 routine">
+  <section class="container section section--ink reveal" id="pomodoro">
+    <h2 class="section-title section-title--light"><span>25 Minutes Work • 5 Minutes Break</span></h2>
+    <div class="panel panel--center">
       <div class="timer">
-        <div id="mode-label" aria-live="polite">Mode: Work</div>
-        <div id="clock" aria-live="polite">25:00</div>
+        <div class="ring" id="ring" aria-hidden="true">
+          <div class="ring-hole">
+            <div id="mode-label" aria-live="polite">Mode: Work</div>
+            <div id="clock" aria-live="polite">25:00</div>
+          </div>
+        </div>
         <div class="controls">
-          <button id="start">Start</button>
-          <button id="pause">Pause</button>
-          <button id="reset">Reset</button>
+          <button id="start" class="btn">Start</button>
+          <button id="pause" class="btn">Pause</button>
+          <button id="reset" class="btn ghost">Reset</button>
         </div>
       </div>
+      <img src="assets/pomodoro_ai.png" alt="AI-style infographic of 25-5 routine">
     </div>
   </section>
 
-  <section class="container" id="progress">
-    <h2>Assignments Progress</h2>
+  <section class="container section reveal" id="progress">
+    <h2 class="section-title"><span>Assignments Progress</span></h2>
     <div class="panel">
       <img src="assets/progress_checklist.png" alt="Assignments progress graphic">
       <div class="tasks">
         <form id="task-form">
           <input type="text" id="task-input" placeholder="Add a task (e.g., IST 359 HW #3)" aria-label="Add task">
-          <button type="submit">Add</button>
+          <button type="submit" class="btn">Add</button>
+          <button type="button" id="clear-tasks" class="btn ghost">Clear All</button>
         </form>
+
+        <div class="progressbar" aria-hidden="true">
+          <div class="bar" id="bar"></div>
+        </div>
+
         <ul id="task-list" aria-live="polite"></ul>
         <p id="task-stats">0 / 0 finished</p>
       </div>
@@ -167,10 +181,8 @@
   </section>
 </main>
 
-<footer class="container">
-  <p>Made for a simple, distraction-free workflow. All content in English.</p>
-</footer>
+</main>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
