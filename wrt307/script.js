@@ -1,3 +1,5 @@
+const SITE_TITLE = 'Syracuse Study Routine Guide';
+
 // ===== Local storage helpers =====
 const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 const load = (k, fallback) => {
@@ -63,7 +65,7 @@ const load = (k, fallback) => {
   function updateUI() {
     clock.textContent = format(remaining);
     modeLabel.textContent = `Mode: ${mode === 'work' ? 'Work' : 'Break'}`;
-    document.title = `${clock.textContent} • ${mode === 'work' ? 'Work 🔶' : 'Break 🔷'}`;
+    document.title = `${SITE_TITLE} — ${clock.textContent} • ${mode === 'work' ? 'Work 🔶' : 'Break 🔷'}`;
     updateRing();
   }
   function chime(){
